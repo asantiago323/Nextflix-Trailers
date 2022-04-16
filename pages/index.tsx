@@ -1,10 +1,12 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Header from '../components/Header'
 import Banner from '../components/Banner'
 import Row from '../components/Row'
+import Modal from '../components/Modal'
 import requests from '../utils/requests'
-import { Movie, Props } from '../typings'
+import { Props } from '../typings'
+import { useRecoilValue } from 'recoil'
+import { modalState } from '../atoms/modalAtom'
 
 const Home = ({
   netflixOriginals,
@@ -16,6 +18,9 @@ const Home = ({
   romanceMovies,
   documentaries
 }: Props) => {
+
+  const showModal = useRecoilValue(modalState);
+
   return (
     <div className="relative h-screen
       bg-gradient-to-b lg:h-[140vh]">
@@ -37,7 +42,7 @@ const Home = ({
           <Row title="Documentaries" movies={documentaries} />
         </section>
       </main>
-      {/* Modal */}
+      {showModal && <Modal />}
     </div>
   )
 }

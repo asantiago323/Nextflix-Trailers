@@ -4,9 +4,13 @@ import { baseUrl } from '../constants/movie'
 import { Movie, Netflix } from '../typings'
 import {FaPlay} from 'react-icons/fa'
 import {InformationCircleIcon} from '@heroicons/react/solid'
+import { useRecoilState } from 'recoil'
+import { modalState, movieState } from '../atoms/modalAtom'
 
 const Banner = ({ netflixOriginals }: Netflix) => {
   const [movie, setMovie] = useState<Movie | null>(null)
+  const [showModal, setShowModal] = useRecoilState(modalState)
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
 
   useEffect(() => {
     setMovie(
@@ -29,7 +33,13 @@ const Banner = ({ netflixOriginals }: Netflix) => {
         {movie?.overview}
       </p>
       <div className="flex space-x-3">
-        <button className="bannerButton bg-white text-black">
+        <button
+          className="bannerButton bg-white text-black"
+          onClick={() => {
+            setCurrentMovie(movie)
+            setShowModal(true)
+          }}
+        >
             <FaPlay className="h-4 w-4 text-black md:h-7 md:w-7" />Play
         </button>
         <button className="bannerButton bg-[gray]/70">
