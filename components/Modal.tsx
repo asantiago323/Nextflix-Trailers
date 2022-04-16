@@ -1,10 +1,10 @@
-import { XIcon } from '@heroicons/react/outline'
-import MuiModal from '@mui/material/Modal'
-import ReactPlayer from 'react-player/lazy'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { modalState, movieState } from '../atoms/modalAtom'
+import { XIcon } from '@heroicons/react/outline'
+import MuiModal from '@mui/material/Modal'
+import {default as _ReactPlayer} from 'react-player/lazy'
+import { ReactPlayerProps } from 'react-player'
 import { Movie, Element, Genre } from '../typings'
 
 const Modal = () => {
@@ -13,6 +13,7 @@ const Modal = () => {
   const [trailer, setTrailer] = useState('')
   const [muted, setMuted] = useState(false)
   const [genres, setGenres] = useState<Genre[]>([])
+  const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
   useEffect(() => {
       if (!currentMovie) return
 
